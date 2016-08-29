@@ -54,7 +54,7 @@
                 <prop key="hibernate.dialect">${hibernate.dialect}</prop>
                 <prop key="hibernate.hbm2ddl.auto">${hibernate.auto}</prop>
                 <prop key="hibernate.show_sql">${hibernate.debug}</prop>
-                <prop key="hibernate.format_sql">${hibernate.debug}</prop>
+                <prop key="hibernate.format_sql">${hibernate.format}</prop>
                 <prop key="current_session_context_class">thread</prop>
             </props>
         </property>

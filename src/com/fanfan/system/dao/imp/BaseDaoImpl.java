@@ -104,12 +104,12 @@ public class BaseDaoImpl implements IBaseDao {
 		
 		Query query = getSession().createQuery(hql);
 		if(params!=null && params.length!=0){
-			System.out.println("参数："+JSONArray.fromObject(params));
+			//System.out.println("参数："+JSONArray.fromObject(params));
 			for(int i=0;i<params.length;i++){
 				
 				query.setParameter(""+i, params[i]);
 			}
-			System.out.flush();
+			//System.out.flush();
 		}
 		return query.list();
 	}
@@ -124,12 +124,12 @@ public class BaseDaoImpl implements IBaseDao {
 		
 		Query query = getSession().createQuery(hql);
 		if(params!=null && params.length!=0){
-			System.out.println("参数："+JSONArray.fromObject(params));
+//			System.out.println("参数："+JSONArray.fromObject(params));
 			for(int i=0;i<params.length;i++){
 				
 				query.setParameter(""+i, params[i]);
 			}
-			System.out.flush();
+//			System.out.flush();
 		}
 		return query.uniqueResult();
 	}
@@ -145,12 +145,12 @@ public class BaseDaoImpl implements IBaseDao {
 		
 		Query query = getSession().createSQLQuery(sql);
 		if(params!=null && params.length!=0){
-			System.out.println("参数："+JSONArray.fromObject(params));
+//			System.out.println("参数："+JSONArray.fromObject(params));
 			for(int i=0;i<params.length;i++){
 				
 				query.setParameter(""+i, params[i]);
 			}
-			System.out.flush();
+//			System.out.flush();
 		}
 		return query.list();
 	}
@@ -178,12 +178,12 @@ public class BaseDaoImpl implements IBaseDao {
 		
 		Query query = getSession().createSQLQuery(sql);
 		if(params!=null && params.length!=0){
-			System.out.println("参数："+JSONArray.fromObject(params));
+//			System.out.println("参数："+JSONArray.fromObject(params));
 			for(int i=0;i<params.length;i++){
 				
 				query.setParameter(""+i, params[i]);
 			}
-			System.out.flush();
+//			System.out.flush();
 		}
 		return query.uniqueResult();
 	}
@@ -211,11 +211,11 @@ public class BaseDaoImpl implements IBaseDao {
 	public int executeSql(String sql, Object... params) {
 		Query query = getSession().createSQLQuery(sql);
 		if (params != null) {
-			System.out.println("参数："+JSONArray.fromObject(params));
+//			System.out.println("参数："+JSONArray.fromObject(params));
 			for (int i = 0; i < params.length; i++) {
 				query.setParameter(""+i, params[i]);
 			}
-			System.out.flush();
+//			System.out.flush();
 		}
 		return query.executeUpdate();
 	}
@@ -230,12 +230,12 @@ public class BaseDaoImpl implements IBaseDao {
 		
 		Query query = getSession().createQuery(hql);
 		if(params!=null && params.length!=0){
-			System.out.println("参数："+JSONArray.fromObject(params));
+//			System.out.println("参数："+JSONArray.fromObject(params));
 			for(int i=0;i<params.length;i++){
 				
 				query.setParameter(""+i, params[i]);
 			}
-			System.out.flush();
+//			System.out.flush();
 		}
 		return query.executeUpdate();
 	}
@@ -269,16 +269,16 @@ public class BaseDaoImpl implements IBaseDao {
 					PreparedStatement ps = con.prepareStatement(querySql);
 					if(params!=null && params.length!=0){
 						
-						System.out.println("参数："+JSONArray.fromObject(params));
+						//System.out.println("参数："+JSONArray.fromObject(params));
 						for(int i=0;i<params.length;i++){
 							
 							ps.setObject(i+1, params[i]);
 						}
-						System.out.flush();
+						//System.out.flush();
 					}
-					System.out.println("hibernate:");
-					System.out.println(new BasicFormatterImpl().format(sql));
-					System.out.flush();
+//					System.out.println("hibernate:");
+//					System.out.println(new BasicFormatterImpl().format(sql));
+//					System.out.flush();
 					ResultSet rs = ps.executeQuery();
 					while(rs.next()) {
 						Map<String,Object> map = new HashMap<String,Object>();
@@ -331,16 +331,16 @@ public class BaseDaoImpl implements IBaseDao {
 			}
 			ps = connection.prepareStatement(sql);
 			if(params!=null && params.length!=0){
-				System.out.println("参数："+JSONArray.fromObject(params));
+				//System.out.println("参数："+JSONArray.fromObject(params));
 				for(int i=0;i<params.length;i++){
 					
 					ps.setObject(i+1, params[i]);
 				}
-				System.out.flush();
+				//System.out.flush();
 			}
-			System.out.println("hibernate:");
-			System.out.println(new BasicFormatterImpl().format(sql));
-			System.out.flush();
+//			System.out.println("hibernate:");
+//			System.out.println(new BasicFormatterImpl().format(sql));
+//			System.out.flush();
 			rs = ps.executeQuery();
 			while(rs.next()) {
 				Map<String,Object> map = new HashMap<String,Object>();
@@ -379,12 +379,12 @@ public class BaseDaoImpl implements IBaseDao {
         hql = "select count(*) " + hql.substring(fromIndex); 
 		Query query = getSession().createQuery(hql);
 		if(params!=null && params.length!=0){
-			System.out.println("参数："+JSONArray.fromObject(params));
+//			System.out.println("参数："+JSONArray.fromObject(params));
 			for(int i=0;i<params.length;i++){
 				
 				query.setParameter(""+i, params[i]);
 			}
-			System.out.flush();
+//			System.out.flush();
 		}
 		Long uniqueResult = (Long)query.uniqueResult();
 		int count = (uniqueResult==null)? 0:uniqueResult.intValue();
@@ -404,12 +404,12 @@ public class BaseDaoImpl implements IBaseDao {
 		int count = count(hql,params);
 		Query query = getSession().createQuery(hql);
 		if(params!=null && params.length!=0){
-			System.out.println("参数："+JSONArray.fromObject(params));
+//			System.out.println("参数："+JSONArray.fromObject(params));
 			for(int i=0;i<params.length;i++){
 				
 				query.setParameter(""+i, params[i]);
 			}
-			System.out.flush();
+//			System.out.flush();
 		}
 		List list = query.setFirstResult(page.getStart()).setMaxResults(page.getLimit()).list();
 		page.setTotalProperty(count);

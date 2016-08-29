@@ -281,17 +281,17 @@ Ext.onReady(function() {
 					border : false,
 					split : true,
 					collapsible : true,
-					listeners: {
-					move : {fn:function(b,c,p,o){
-						doRefresh();
-					}},
-					collapse : {fn:function(p,o){
-						doRefresh();
-					}},
-					expand : {fn:function(p,o){
-						doRefresh();
-					}}
-				},
+//					listeners: {
+//					move : {fn:function(b,c,p,o){
+//						doRefresh();
+//					}},
+//					collapse : {fn:function(p,o){
+//						doRefresh();
+//					}},
+//					expand : {fn:function(p,o){
+//						doRefresh();
+//					}}
+//				},
 					items : [{
 								xtype : "panel",
 								title : "菜单",
@@ -430,22 +430,22 @@ Ext.onReady(function() {
 				});
 	}
 	
-	function doRefresh(){
-		
-		var tabs = tabPanel.items.items;
-		
-		Ext.Array.each(tabs,function(tab){
-		
-			tab.sidebarChange = (tab.sidebarChange == true ? false : true);
-			
-		});
-		var activeTab = tabPanel.getActiveTab();
-		activeTab.sidebarChange = false;
-		if(activeTab.title!='首页'){
-		
-			activeTab.loader.load();
-		}
-	}
+//	function doRefresh(){
+//		
+//		var tabs = tabPanel.items.items;
+//		
+//		Ext.Array.each(tabs,function(tab){
+//		
+//			tab.sidebarChange = (tab.sidebarChange == true ? false : true);
+//			
+//		});
+//		var activeTab = tabPanel.getActiveTab();
+//		activeTab.sidebarChange = false;
+//		if(activeTab.title!='首页'){
+//		
+//			activeTab.loader.load();
+//		}
+//	}
 
 	/**
 	 * 加载页面元素
