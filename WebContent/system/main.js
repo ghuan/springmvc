@@ -232,26 +232,28 @@ Ext.onReady(function() {
 	var a = Ext.create('Ext.Viewport', {
 				layout : {
 					type : "border",
-					padding : '5 5 0 5'
+					padding : '0 5 0 5'
 				},
-				
 				autoScroll : true,
 				border : false,
+				 defaults: {  
+					 bodyStyle: "background-image: url(images/system/banner1.png);"
+			        },
 				items : [{
 					frame : false,
 					region : "north",
-					height : 40,
+					height : 60,
 					split : false,
 					border : false,
 					layout : {
 						type : "border"
 					},
 					defaults : {
-						bodyStyle : "background-color:#D7E4F3;padding:0px",
 						frame : false,
-						height : 40,
+						height : 60,
 						split : false,
-						border : false
+						border : false,
+						bodyStyle: "background-image: url(images/system/banner2.png);"
 					},
 					items : [{
 
@@ -477,7 +479,7 @@ Ext.onReady(function() {
 	}
 
 	// 加载页头页脚
-	var topview = '<div style="background-color:#D7E4F3;height:40px;">&nbsp;&nbsp;';
+	var topview = '<div style="height:60px;">&nbsp;&nbsp;';
 	topview += '<img src="js/extjs-4-2-1/resources/icons/laptop.png" width="20" height="20"/>';
 	topview += '<font style="font-size:24px;font-weight:bold;">' + systemtitle
 			+ '</font>';
