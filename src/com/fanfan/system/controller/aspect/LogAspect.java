@@ -28,7 +28,7 @@ import com.fanfan.system.vo.LoginInfo;
 public class LogAspect{   
 	
 	//定义切点
-    @Pointcut("execution(* com.fanfan.*..action..*.*(..))")
+    @Pointcut("execution(* com.fanfan.*..controller..*.*(..))")
     public void simplePointcut() { 
     }
     //切入切点  
@@ -50,8 +50,8 @@ public class LogAspect{
 		String method = joinPoint.getSignature().toLongString();
 		
 		System.out.println("开始执行:"+method);
-		if(method.indexOf("SystemAction.login")==-1){
-			
+		if(method.indexOf("SystemController.login")==-1){
+
 			HttpServletRequest request = RequestResponseContext.getRequest();
 			String checkLogin = request.getParameter("checkLogin");
 			checkLogin = "false".equals(checkLogin) ? "false" : "true";
