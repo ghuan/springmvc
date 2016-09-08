@@ -6,11 +6,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import net.sf.json.util.JSONUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.AfterReturning;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
-import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -39,7 +39,7 @@ public class LogAspect{
 //	private HttpServletResponse response;
 //	@Autowired
 //	private HttpSession session;
-
+	protected static final Log log = LogFactory.getLog("errorLog");
 	//定义切点
     @Pointcut("execution(* com.fanfan.*..controller..*.*(..))")
     public void simplePointcut() { 
@@ -78,5 +78,25 @@ public class LogAspect{
 			}
 		}	
     }
-	
+
+	/**
+	 * 异常输出日志
+	 *
+	 * @param joinPoint
+	 * @param e
+	 */
+	@AfterThrowing(pointcut = "simplePointcut()", throwing = "e")
+	public  void afterThrowing(JoinPoint joinPoint, Throwable e) {
+
+		String method = joinPoint.getSignature().toLongString();
+		HttpServletRequest request = RequestResponseContext.getRequest();
+		String checkLogin = request.getParameter("checkLogin");
+		checkLogin = "false".equals(checkLogin) ? "false" : "true";
+		if(checkLogin.equals("true")){
+			log.error(e.getMessage(), e);
+		}
+
+	}
+
+
 }

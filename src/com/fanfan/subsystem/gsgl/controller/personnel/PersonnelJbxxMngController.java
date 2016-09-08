@@ -33,7 +33,7 @@ import com.fanfan.system.service.ISystemService;
 public class PersonnelJbxxMngController{
 
 	protected static final Log log = LogFactory.getLog(PersonnelJbxxMngController.class);
-	
+
 	@Autowired
 	private IPersonnelJbxxMngService personnelJbxxService;
 	@Autowired
@@ -46,7 +46,7 @@ public class PersonnelJbxxMngController{
 	 */
 	@RequestMapping(value="viewPersonnelJbxxMng")
 	public String viewPersonnelJbxxMng() {
-		
+
 		log.info("正在载入员工基本信息管理页面...");
 		return "subsystem/gsgl/personnel/jbxx/personnelJbxxMng";
 	}
