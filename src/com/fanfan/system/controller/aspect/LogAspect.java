@@ -3,18 +3,24 @@ package com.fanfan.system.controller.aspect;
 
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import com.fanfan.system.core.exception.BusinessException;
 import com.fanfan.system.core.web.RequestResponseContext;
 import com.fanfan.system.util.constants.System_Constants;
 import com.fanfan.system.vo.LoginInfo;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.context.request.ServletWebRequest;
 
 /**
  * 
@@ -25,15 +31,22 @@ import com.fanfan.system.vo.LoginInfo;
  */
 @Controller
 @Aspect
-public class LogAspect{   
-	
+public class LogAspect{
+
+//	@Autowired
+//	private HttpServletRequest request;
+//	@Autowired
+//	private HttpServletResponse response;
+//	@Autowired
+//	private HttpSession session;
+
 	//定义切点
-    @Pointcut("execution(* com.fanfan.*..action..*.*(..))")
+    @Pointcut("execution(* com.fanfan.*..controller..*.*(..))")
     public void simplePointcut() { 
     }
     //切入切点  
-    @AfterReturning(pointcut = "simplePointcut()", returning = "result") 
-    public void afterAdvice(JoinPoint joinPoint, Object result) { 
+    @AfterReturning(pointcut = "simplePointcut()", returning = "result")
+    public void afterAdvice(JoinPoint joinPoint, Object result) {
     	String method = joinPoint.getSignature().toLongString();
     	System.out.println("执行结束:"+method);
 //        for(Method methodObj:joinPoint.getTarget().getClass().getMethods()){
@@ -44,13 +57,13 @@ public class LogAspect{
 //		}
     }
     //切入切点  
-	@Before("simplePointcut()")   
+	@Before("simplePointcut()")
     public void beforeAdvice(JoinPoint joinPoint) { 
     	
 		String method = joinPoint.getSignature().toLongString();
-		
+
 		System.out.println("开始执行:"+method);
-		if(method.indexOf("SystemAction.login")==-1){
+		if(method.indexOf("SystemController.login")==-1){
 			
 			HttpServletRequest request = RequestResponseContext.getRequest();
 			String checkLogin = request.getParameter("checkLogin");

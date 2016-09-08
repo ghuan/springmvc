@@ -53,7 +53,6 @@ public class SystemController{
 		try {
 			LoginInfo loginInfo = systemService.LoginAndGetLoginInfo(user);
 			if(loginInfo.isSuccess()){
-				
 				//更新用户登陆ip与时间
 			    loginInfo.getUser().setLastIp(VTools.getLoginIp(request));
 			    loginInfo.getUser().setLastTime(VTools.getTimeNow(System_Constants.TIMEFORMAT_YMDHMS));

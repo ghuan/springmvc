@@ -14,15 +14,16 @@
 		http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd">  
 		
 <!-- 配置静态资源，直接映射到对应的文件夹，不被DispatcherServlet处理 -->  
-    <mvc:resources mapping="/images/**" location="/images/"/>  
+    <mvc:resources mapping="/images/**" location="/images/"/>
     <mvc:resources mapping="/css/**" location="/css/"/>  
-    <mvc:resources mapping="/js/**" location="/js/"/>  
-    
+    <mvc:resources mapping="/js/**" location="/js/"/>
+
  <!-- Controller Service Repository自动注入配置路径  -->
 <context:component-scan base-package="com.fanfan"></context:component-scan>
 
 <!-- 启动对@AspectJ注解的支持  -->
-<aop:aspectj-autoproxy proxy-target-class="true" /> 
+<!--通知spring使用cglib而不是jdk的来生成代理方法 AOP可以拦截到Controller-->
+<aop:aspectj-autoproxy proxy-target-class="true" />
 <bean id="logAspect" class="com.fanfan.system.controller.aspect.LogAspect"/>
 
 <!-- 开启注解 @ResponseBody 响应转码 JSON String-->
@@ -69,11 +70,11 @@
      <!--resolveLazily属性启用是为了推迟文件解析，以便在UploadAction 中捕获文件大小异常-->  
      <property name="resolveLazily" value="true"/> 
 </bean>
-<!--自定义拦截器 --> 
+<!--自定义拦截器 -->
 <mvc:interceptors>
 	<mvc:interceptor>
 		<mvc:mapping path="/**"/>
 		<bean id="customInterceptor" class="com.fanfan.system.core.spring.CustomInterceptor"/>  
 	</mvc:interceptor>
-</mvc:interceptors> 
- </beans>  
+</mvc:interceptors>
+ </beans>
