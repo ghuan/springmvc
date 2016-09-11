@@ -1,9 +1,12 @@
 package com.fanfan.subsystem.gsgl.controller.personnel;
 
-import java.util.List;
-
-import javax.servlet.http.HttpServletResponse;
-
+import com.fanfan.subsystem.gsgl.entity.personnel.Personnel;
+import com.fanfan.system.core.annotation.ControllerLog;
+import com.fanfan.subsystem.gsgl.service.personnel.IPersonnelJbxxMngService;
+import com.fanfan.system.core.exception.BusinessException;
+import com.fanfan.system.core.hibernate.Page;
+import com.fanfan.system.entity.Files;
+import com.fanfan.system.service.ISystemService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +17,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
-import com.fanfan.subsystem.gsgl.entity.personnel.Personnel;
-import com.fanfan.subsystem.gsgl.service.personnel.IPersonnelJbxxMngService;
-import com.fanfan.system.core.exception.BusinessException;
-import com.fanfan.system.core.hibernate.Page;
-import com.fanfan.system.entity.Files;
-import com.fanfan.system.service.ISystemService;
+import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * 
@@ -59,6 +58,7 @@ public class PersonnelJbxxMngController{
 	 */
 	@RequestMapping(value="getPersonnelPage")
 	@ResponseBody
+	@ControllerLog(description = "获取员工基本信息分页数据")
 	public Page getPersonnelPage(Page page,Personnel personnel){
 		
 		try {
