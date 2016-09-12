@@ -5,7 +5,7 @@ package com.fanfan.system.controller.aspect;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
+import com.fanfan.system.core.annotation.*;
 import net.sf.json.util.JSONUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -21,6 +21,8 @@ import com.fanfan.system.vo.LoginInfo;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.context.request.ServletWebRequest;
+
+import java.lang.reflect.Method;
 
 /**
  * 
@@ -40,10 +42,21 @@ public class LogAspect{
 //	@Autowired
 //	private HttpSession session;
 	protected static final Log log = LogFactory.getLog("errorLog");
-	//定义切点
+	//定义通用切点
     @Pointcut("execution(* com.fanfan.*..controller..*.*(..))")
     public void simplePointcut() { 
     }
+
+    //定义controller层切点
+    @Pointcut("@annotation(com.fanfan.system.core.annotation.ControllerLog)")
+    public void controllerPointcut(){
+    }
+
+    //定义service层切点
+    @Pointcut("@annotation(com.fanfan.system.core.annotation.ServiceLog)")
+    public void servicePointcut(){
+    }
+
     //切入切点  
     @AfterReturning(pointcut = "simplePointcut()", returning = "result")
     public void afterAdvice(JoinPoint joinPoint, Object result) {
@@ -98,5 +111,52 @@ public class LogAspect{
 
 	}
 
+    //切入controller切点
+    @Before("controllerPointcut()")
+    public void beforeController(JoinPoint joinPoint) {
+        String method = joinPoint.getSignature().toLongString();
+        String aa = LogAspect.getAnnotationDescription(joinPoint, ControllerLog.class);
+        System.out.println(aa);
+    }
+
+    //切入service切点
+    @Before("servicePointcut()")
+    public void beforeService(JoinPoint joinPoint) {
+        String method = joinPoint.getSignature().toLongString();
+    }
+
+    /**
+     * 获取注释description内容
+     * @param joinPoint
+     * @param clazz
+     * @return
+     */
+    public static String getAnnotationDescription(JoinPoint joinPoint,Class clazz){
+        String description = "";
+        try {
+            String targetName = joinPoint.getTarget().getClass().getName();
+            String methodName = joinPoint.getSignature().getName();
+            Object[] arguments = joinPoint.getArgs();
+            Class targetClass = Class.forName(targetName);
+            Method[] methods = targetClass.getMethods();
+
+            for (Method method : methods) {
+                if (method.getName().equals(methodName)) {
+                    Class[] clazzs = method.getParameterTypes();
+                    if (clazzs.length == arguments.length) {
+                        if(clazz.equals(ControllerLog.class)){
+                            description = method.getAnnotation(ControllerLog.class).description();
+                        }else if(clazz.equals(ServiceLog.class)){
+                            description = method.getAnnotation(ControllerLog.class).description();
+                        }
+                        break;
+                    }
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return description;
+    }
 
 }

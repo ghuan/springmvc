@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+    <beans xmlns="http://www.springframework.org/schema/beans"  
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+        xmlns:context="http://www.springframework.org/schema/context"  
+        xmlns:mvc="http://www.springframework.org/schema/mvc" 
+        xmlns:aop="http://www.springframework.org/schema/aop"
+        xsi:schemaLocation="http://www.springframework.org/schema/beans   
+        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context-3.2.xsd
+        http://www.springframework.org/schema/aop
+		http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+		http://www.springframework.org/schema/mvc
+		http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd">  
+		
+<!-- 配置静态资源，直接映射到对应的文件夹，不被DispatcherServlet处理 -->  
+    <mvc:resources mapping="/images/**" location="/images/"/>
+    <mvc:resources mapping="/css/**" location="/css/"/>  
+    <mvc:resources mapping="/js/**" location="/js/"/>
+
+ <!-- Controller Service Repository自动注入配置路径  -->
+<context:component-scan base-package="com.fanfan"></context:component-scan>
+
+<!-- 启动对@AspectJ注解的支持  -->
+<!--通知spring使用cglib而不是jdk的来生成代理方法 AOP可以拦截到Controller-->
+<aop:aspectj-autoproxy proxy-target-class="true" />
+<bean id="logAspect" class="com.fanfan.system.controller.aspect.LogAspect"/>
+
+<!-- 开启注解 @ResponseBody 响应转码 JSON String-->
+<mvc:annotation-driven>
+	<mvc:message-converters>
+		<bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter"/>
+		<bean class="org.springframework.http.converter.StringHttpMessageConverter">
+			<property name="supportedMediaTypes" value="text/html;charset=UTF-8"/>
+		</bean>
+	</mvc:message-converters>
+</mvc:annotation-driven>
+
+<!-- 开启注解 @ResponseBody 响应转码 String
+<mvc:annotation-driven>
+	<mvc:message-converters>
+		<bean class="org.springframework.http.converter.StringHttpMessageConverter">
+			<constructor-arg>
+				<bean class="java.nio.charset.Charset" factory-method="forName">
+			<constructor-arg value="UTF-8"/>
+				</bean>
+			</constructor-arg>
+		</bean>
+	</mvc:message-converters>
+</mvc:annotation-driven>
+ -->
+
+<!-- 控制器映射到url	
+<bean name="/usershow.action" class="com.springmvc.servlet.impl.UserListAction"/> 
+<bean name="/usersave.action" class="com.springmvc.servlet.impl.UserSaveAction"/> 	
+ --> 
+ 
+<!-- 视图解析  -->	
+<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+<property name="prefix" value="/"></property>
+<property name="suffix" value=".jsp"></property>
+</bean>
+
+<!-- 定义异常类 -->
+<bean id="exceptionResolver" class="com.fanfan.system.core.exception.CustomSimpleMappingExceptionResolver"/>  
+ <!-- Configure the multipart resolver -->  
+<bean id="multipartResolver" class="com.fanfan.system.core.spring.CustomCommonsMultipartResolver">  
+    <!-- one of the properties available; the maximum file size in bytes -->  
+    <property name="maxUploadSize" value="2000000"/>  
+     <!--resolveLazily属性启用是为了推迟文件解析，以便在UploadAction 中捕获文件大小异常-->  
+     <property name="resolveLazily" value="true"/> 
+</bean>
+<!--自定义拦截器 -->
+<mvc:interceptors>
+	<mvc:interceptor>
+		<mvc:mapping path="/**"/>
+		<bean id="customInterceptor" class="com.fanfan.system.core.spring.CustomInterceptor"/>  
+	</mvc:interceptor>
+</mvc:interceptors>
+ </beans>
