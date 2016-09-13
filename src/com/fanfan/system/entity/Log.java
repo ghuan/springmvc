@@ -2,6 +2,7 @@ package com.fanfan.system.entity;
 
 import com.fanfan.system.util.constants.System_Constants;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 
@@ -22,7 +23,7 @@ public class Log {
 	private String exceptiondetail;
 	private String requestip;
 	private String creator;
-	private String creattime;
+	private String createtime;
 
 	public String getId() {
 		return id;
@@ -71,7 +72,9 @@ public class Log {
 	public void setExceptioncode(String exceptioncode) {
 		this.exceptioncode = exceptioncode;
 	}
-
+	@Lob
+	//@Basic(fetch = FetchType.LAZY)默认值
+	@Type(type = "org.hibernate.type.MaterializedClobType")
 	public String getExceptiondetail() {
 		return exceptiondetail;
 	}
@@ -96,11 +99,11 @@ public class Log {
 		this.creator = creator;
 	}
 
-	public String getCreattime() {
-		return creattime;
+	public String getCreatetime() {
+		return createtime;
 	}
 
-	public void setCreattime(String creattime) {
-		this.creattime = creattime;
+	public void setCreatetime(String createtime) {
+		this.createtime = createtime;
 	}
 }

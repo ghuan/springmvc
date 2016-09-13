@@ -117,15 +117,15 @@ public class LogAspect{
             //记录异常日志到数据库
             LoginInfo loginInfo = (LoginInfo) request.getSession().getAttribute(System_Constants.USER_LOGININFO);
             com.fanfan.system.entity.Log databaseLog = new com.fanfan.system.entity.Log();
-            databaseLog.setDescription(null);
+            databaseLog.setDescription(e.getMessage());
             databaseLog.setMethod((joinPoint.getTarget().getClass().getName() + "." + joinPoint.getSignature().getName() + "()"));
             databaseLog.setType(1);
             databaseLog.setRequestip(VTools.getLoginIp(request));
             databaseLog.setExceptioncode( e instanceof BusinessException ? ((BusinessException)e).getType()+"" : "0");
-            databaseLog.setExceptiondetail(e.getMessage());
+            databaseLog.setExceptiondetail(e.toString());
             databaseLog.setParams( null);
             databaseLog.setCreator(loginInfo.getUser().getId());
-            databaseLog.setCreattime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+            databaseLog.setCreatetime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
             //保存数据库
             logService.saveOrUpdate(databaseLog);
 		}
@@ -153,7 +153,7 @@ public class LogAspect{
             databaseLog.setExceptiondetail( null);
             databaseLog.setParams( null);
             databaseLog.setCreator(loginInfo.getUser().getId());
-            databaseLog.setCreattime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+            databaseLog.setCreatetime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
             //保存数据库
             logService.saveOrUpdate(databaseLog);
         }catch (Exception e){
@@ -180,7 +180,7 @@ public class LogAspect{
             databaseLog.setExceptiondetail( null);
             databaseLog.setParams( null);
             databaseLog.setCreator(loginInfo.getUser().getId());
-            databaseLog.setCreattime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+            databaseLog.setCreatetime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
             //保存数据库
             logService.saveOrUpdate(databaseLog);
         }catch (Exception e){

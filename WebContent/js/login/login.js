@@ -46,8 +46,8 @@
 				 	 		 * 添加cookie
 				 	 		 */
 				 	 		if(document.getElementById('rememberPs').checked){
-				 	 			addCookie("loginName", $('#loginname').val(), 240);//10天失效
-				 	 			addCookie("password", $('#password').val(), 240);//10天失效
+				 	 			addCookie("loginName", $('#loginname').val(), 2400);//10天失效
+				 	 			addCookie("password", $('#password').val(), 2400);//10天失效
 							}
 //			 	 			show_err_msg(JSON.stringify(data));
 			            },  

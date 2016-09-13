@@ -4,16 +4,15 @@
 create table T_SYS_LOG
 (
   id              VARCHAR2(32) not null,
-  description     VARCHAR2(2000),
+  description     VARCHAR2(1000),
   method          VARCHAR2(1000),
   params          VARCHAR2(400),
   type            NUMBER(1),
   exceptioncode   VARCHAR2(19),
-  exceptiondetail VARCHAR2(2000),
+  exceptiondetail clob,
   requestip       VARCHAR2(30),
   creator         VARCHAR2(32),
-  createtime      VARCHAR2(32),
-  creattime       VARCHAR2(255 CHAR)
+  createtime      VARCHAR2(32)
 )
 tablespace FN_DATA
   pctfree 10
