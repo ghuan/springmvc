@@ -30,7 +30,7 @@ public class PersonnelJbxxMngDaoImpl extends BaseDaoImpl implements IPersonnelJb
 	 */
 	public Page queryPersonnelPage(Page page,Personnel personnel){
 		
-		String hql = "from Person1nel where 1 = 1";
+		String hql = "from Personnel where 1 = 1";
 		if(!VTools.StringIsEmpty(personnel.getName())){
 			
 			hql += " and name like '%"+personnel.getName().trim()+"%'";

@@ -41,16 +41,32 @@
 				 	 			}
 				 	 		
 				 	 		}
-				 	 		show_msg("登陆成功，正在跳转到主页面...",'main.jsp');
-				 	 		/*
-				 	 		 * 添加cookie
-				 	 		 */
-				 	 		if(document.getElementById('rememberPs').checked){
-				 	 			addCookie("loginName", $('#loginname').val(), 2400);//10天失效
-				 	 			addCookie("password", $('#password').val(), 2400);//10天失效
-							}
-//			 	 			show_err_msg(JSON.stringify(data));
-			            },  
+							$.ajax({
+
+								type: "POST",
+								url: "system/loginCallback.action",
+								dataType:"json",
+								success : function(d){
+									if(d){
+										if(!d.success){
+											show_err_msg(d.msg);
+											return;
+										}
+									}
+									show_msg("登陆成功，正在跳转到主页面...",'main.jsp');
+									/*
+									 * 添加cookie
+									 */
+									if(document.getElementById('rememberPs').checked){
+										addCookie("loginName", $('#loginname').val(), 10);//10天失效
+										addCookie("password", $('#password').val(), 10);//10天失效
+									}
+								},
+								error : function(d){
+									show_err_msg("服务器内部错误，请联系管理员！");
+								}
+							});
+			            },
 			            error : function(data){  
 			                show_err_msg("服务器内部错误，请联系管理员！");
 				 	 	}
@@ -91,15 +107,16 @@
     	 * 添加cookie
     	 * @param name
     	 * @param value
-    	 * @param expiresHours
+    	 * @param days
     	 */
-    	function addCookie(name, value, expiresHours) {
+    	function addCookie(name, value, days) {
+
 			var cookieString = name + "=" + escape(value);
 			//判断是否设置过期时间
-			if (expiresHours > 0) {
-				var date = new Date();
-				date.setTime(date.getTime + expiresHours * 3600 * 1000);
-				cookieString = cookieString + "; expires=" + date.toGMTString();
+			if (days > 0) {
+				var exp = new Date();
+				exp.setTime(exp.getTime() + days*24*60*60*1000);
+				cookieString = name + "="+ escape (value) + ";expires=" + exp.toGMTString();
 			}
 			document.cookie = cookieString;
 }

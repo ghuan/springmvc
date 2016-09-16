@@ -1,5 +1,6 @@
 package com.fanfan.system.service;
 
+import com.fanfan.system.core.hibernate.Page;
 import com.fanfan.system.entity.Log;
 import com.fanfan.system.entity.Org;
 
@@ -26,14 +27,23 @@ public interface ILogService {
 	 * @param ids
 	 */
 	public void delete(String[] ids);
-	
+
 	/**
-	 * 获取日志数据
+	 * 获取日志分页数据
+	 * @param page
 	 * @param startTime
 	 * @param endTime
 	 * @param type
+	 * @param userId
 	 * @return
 	 */
-	public List<Log> getLog(String startTime,String endTime,int type);
+	public Page getLogPage(Page page,String startTime, String endTime, int type, String userId);
+
+	/**
+	 * 获取异常具体描述
+	 * @param id
+	 * @return
+	 */
+	public String getExceptionDetail(String id);
 	
 }

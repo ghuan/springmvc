@@ -2,6 +2,7 @@ package com.fanfan.system.controller;
 
 import java.util.List;
 
+import com.fanfan.system.core.annotation.ControllerLog;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -83,6 +84,7 @@ public class AuthController{
 	 */
 	@RequestMapping(value="saveAuth")
 	@ResponseBody
+	@ControllerLog(description = "保存角色菜单权限")
 	public void saveAuth(String auths,String roleId) {
 		
 		try {
@@ -99,6 +101,7 @@ public class AuthController{
 	 */
 	@RequestMapping(value="saveOrUpdateRole")
 	@ResponseBody
+	@ControllerLog(description = "保存或更新系统角色")
 	public void saveOrUpdateRole(Role role) {
 		
 		try {
@@ -115,6 +118,7 @@ public class AuthController{
 	 */
 	@RequestMapping(value="delRole")
 	@ResponseBody
+	@ControllerLog(description = "删除系统角色")
 	public void delRole(String[] roleIds) {
 		
 		try {
@@ -147,6 +151,7 @@ public class AuthController{
 	 */
 	@RequestMapping(value="saveUserRole")
 	@ResponseBody
+	@ControllerLog(description = "保存用户与角色的关联")
 	public void saveUserRole(String roleId,String[] userIds) {
 		
 		try {

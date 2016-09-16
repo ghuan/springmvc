@@ -1,5 +1,6 @@
 package com.fanfan.system.dao.imp;
 
+import com.fanfan.system.core.hibernate.Page;
 import com.fanfan.system.dao.ILogDao;
 import com.fanfan.system.entity.Log;
 import com.fanfan.system.entity.Org;
@@ -27,15 +28,23 @@ public class LogDaoImpl extends BaseDaoImpl implements ILogDao{
     }
 
     @Override
-    public List<Log> getLog(String startTime, String endTime, int type) {
-        String sql = "select * from t_sys_log t where 1 = 1";
+    public Page getLogPage(Page page, String startTime, String endTime, int type, String userId){
+        String sql = "select t.*,t1.name as createName from t_sys_log t left join t_sys_user t1 on t1.id = t.creator where 1 = 1";
         if(!VTools.StringIsEmpty(startTime)){
-            sql += " and t.createTime >= '"+startTime+"'";
+            sql += " and t.createTime >= '"+startTime+" 00:00:00'";
         }
         if(!VTools.StringIsEmpty(endTime)){
-            sql += " and t.createTime <= '"+endTime+"'";
+            sql += " and t.createTime <= '"+endTime+" 23:59:59'";
         }
-        sql += " and t.type = " + type + " order by createtime desc";
-        return super.queryListBeanBySql(Log.class,sql,new Object[]{});
+        if(!VTools.StringIsEmpty(userId)){
+            sql += " and t.creator = '"+userId+"'";
+        }
+        sql += " and t.type = " + type + " order by t.createtime desc";
+        return super.queryPageBySql(page,Log.class,sql,new Object[]{});
+    }
+
+    @Override
+    public String getExceptionDetail(String id){
+        return ((Log)super.queryObject("from Log where id = ?0",new Object[]{id})).getExceptionDetail();
     }
 }

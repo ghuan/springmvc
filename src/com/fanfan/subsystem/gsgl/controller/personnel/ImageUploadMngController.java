@@ -2,6 +2,7 @@ package com.fanfan.subsystem.gsgl.controller.personnel;
 
 import javax.servlet.http.HttpServletResponse;
 
+import com.fanfan.system.core.annotation.ControllerLog;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,6 +54,7 @@ public class ImageUploadMngController{
 	 */
 	@RequestMapping(value="imageUpload")
 	@ResponseBody
+	@ControllerLog(description = "图片上传")
 	public void imageUpload(@RequestParam("file") CommonsMultipartFile file,String name){
 		
 		try {
@@ -102,6 +104,7 @@ public class ImageUploadMngController{
 	 */
 	@RequestMapping(value="delete")
 	@ResponseBody
+	@ControllerLog(description = "删除图片")
 	public void delete(String[] ids){
 		
 		try {

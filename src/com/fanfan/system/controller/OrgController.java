@@ -2,6 +2,7 @@ package com.fanfan.system.controller;
 
 import java.util.List;
 
+import com.fanfan.system.core.annotation.ControllerLog;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,6 @@ public class OrgController{
 	
 	/**
 	 * 跳转到组织机构管理页面
-	 * @param request
 	 * @return
 	 */
 	@RequestMapping(value="viewOrg")
@@ -42,12 +42,13 @@ public class OrgController{
 	}
 	
 	/**
-	 * 保存或更新
+	 * 保存或更新组织机构
 	 * @param org
 	 * @return
 	 */
 	@RequestMapping(value="saveOrUpdate")
 	@ResponseBody
+	@ControllerLog(description = "保存或更新组织机构")
 	public void saveOrUpdate(Org org){
 		
 		try {
@@ -60,11 +61,12 @@ public class OrgController{
 	}
 	
 	/**
-	 * 删除
+	 * 删除组织机构
 	 * @param ids
 	 */
 	@RequestMapping(value="delete")
 	@ResponseBody
+	@ControllerLog(description = "删除组织机构")
 	public void delete(String[] ids){
 		
 		try {
@@ -91,9 +93,7 @@ public class OrgController{
 	
 	/**
 	 * 获取组织路径
-	 * @param fromOrgid
 	 * @param name
-	 * @param initData
 	 * @return
 	 */
 	@RequestMapping(value="getOrgByPath")

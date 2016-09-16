@@ -8,6 +8,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
+import com.fanfan.system.core.annotation.ControllerLog;
+import com.fanfan.system.core.annotation.ServiceLog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -45,11 +47,6 @@ public class SystemServiceImpl implements ISystemService{
 	 */
 	public LoginInfo LoginAndGetLoginInfo(User user){
 		
-//		User u1 = new User();
-//		u1.setLOGINNAME("gaohuan d");
-//		u1.setPASSWORD("111111111");
-		
-//		userDao.save(u1);
 	    LoginInfo loginInfo = new LoginInfo();
 	    if ((VTools.StringIsEmpty(user.getLoginName())) || (VTools.StringIsEmpty(user.getPassword())))
 	    {
@@ -209,7 +206,6 @@ public class SystemServiceImpl implements ISystemService{
 	 * 二进制转文件并下载
 	 * @param content
 	 * @param returnFileName
-	 * @param response
 	 */
 	public void downloadBinaryFile(byte[] content,String returnFileName){
 		

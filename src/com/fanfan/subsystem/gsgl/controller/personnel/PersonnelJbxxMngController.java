@@ -40,7 +40,6 @@ public class PersonnelJbxxMngController{
 	
 	/**
 	 * 跳转到员工基本信息管理页面
-	 * @param request
 	 * @return
 	 */
 	@RequestMapping(value="viewPersonnelJbxxMng")
@@ -58,7 +57,6 @@ public class PersonnelJbxxMngController{
 	 */
 	@RequestMapping(value="getPersonnelPage")
 	@ResponseBody
-	@ControllerLog(description = "获取员工基本信息分页数据")
 	public Page getPersonnelPage(Page page,Personnel personnel){
 		
 		try {
@@ -74,6 +72,7 @@ public class PersonnelJbxxMngController{
 	 */
 	@RequestMapping(value="saveOrUpdate")
 	@ResponseBody
+	@ControllerLog(description = "保存或更新员工基本信息")
 	public void saveOrUpdate(Personnel personnel){
 		
 		try {
@@ -89,6 +88,7 @@ public class PersonnelJbxxMngController{
 	 */
 	@RequestMapping(value="delete")
 	@ResponseBody
+	@ControllerLog(description = "删除员工基本信息")
 	public void delete(String[] ids){
 		
 		try {
@@ -104,6 +104,7 @@ public class PersonnelJbxxMngController{
 	 */
 	@RequestMapping(value="saveOrUpdateBatch")
 	@ResponseBody
+	@ControllerLog(description = "批量保存或更新员工基本信息")
 	public void saveOrUpdateBatch(@RequestBody List<Personnel> personnels){
 		
 		try {
@@ -115,10 +116,11 @@ public class PersonnelJbxxMngController{
 	
 	/**
 	 * 更新导入模板
-	 * @param personnels
+	 * @param file
 	 */
 	@RequestMapping(value="updateTemplate")
 	@ResponseBody
+	@ControllerLog(description = "更新导入模板")
 	public void updateTemplate(@RequestParam("file") CommonsMultipartFile file){
 		
 		try {
@@ -134,6 +136,7 @@ public class PersonnelJbxxMngController{
 	 * @param response
 	 */
 	@RequestMapping(value="downloadTemplate")
+	@ControllerLog(description = "下载导入模板")
 	public void downloadTemplate(HttpServletResponse response){
 		
 		try {
@@ -151,6 +154,7 @@ public class PersonnelJbxxMngController{
 	 */
 	@RequestMapping(value="importTemplate")
 	@ResponseBody
+	@ControllerLog(description = "导入excel数据")
 	public String importTemplate(@RequestParam("file") CommonsMultipartFile file,HttpServletResponse response){
 		
 		try {
@@ -167,6 +171,7 @@ public class PersonnelJbxxMngController{
 	 */
 	@RequestMapping(value="exportTemplate")
 	@ResponseBody
+	@ControllerLog(description = "导出excel数据")
 	public void exportTemplate(Personnel personnel,HttpServletResponse response){
 		
 		try {

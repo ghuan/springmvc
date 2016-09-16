@@ -1,7 +1,11 @@
 package com.fanfan.system.util;
 
 import java.beans.PropertyDescriptor;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.Reader;
 import java.math.BigDecimal;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -16,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import oracle.sql.CLOB;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -190,9 +195,9 @@ public class VTools{
 	
 	/**
      * 将数据库查询得出的List<Map>中的属性设置到实体对象中，并加入list
-     * @param entity
-     * @param map
-     * @param isLowerCase[true:Map中属性为小写;false:Map中属性为大写]
+     * @param clazz
+     * @param list
+     * @param isLowerCase [true:Map中属性为小写;false:Map中属性为大写]
      */
     @SuppressWarnings({ "rawtypes", "unchecked" })
 	public static List getListBeanFromSqlListMap(Class clazz, List<Map> list, Boolean isLowerCase){
@@ -219,9 +224,9 @@ public class VTools{
 	}
 	/**
      * 将数据库查询得出的Map中的属性设置到实体对象中，属性不区分大小写
-     * @param entity
+     * @param bean
      * @param map
-     * @param isLowerCase[true:Map中属性为小写;false:Map中属性为大写]
+     * @param isLowerCase [true:Map中属性为小写;false:Map中属性为大写]
      */
     @SuppressWarnings("rawtypes")
 	public static void setBeanFromSqlMap(Object bean, Map map, Boolean isLowerCase) {
@@ -271,7 +276,10 @@ public class VTools{
                 }else if(value.getClass().equals(Timestamp.class)){//时间类型
                 	Date date = (Date) value;
                 	PropertyUtils.setProperty(bean, d.getName(), date);
-            	}
+            	}else if(value.getClass().equals(CLOB.class)){//Clob类型
+					String str = VTools.ClobToString((CLOB) value);
+					PropertyUtils.setProperty(bean, d.getName(), str);
+				}
             } catch (Exception e) {
                 throw new BusinessException("属性名：" + d.getName() + " 设置到bean中时出错", e);
             }
@@ -304,4 +312,31 @@ public class VTools{
     	
     	return getHttpServletRequest().getSession();
     }
+
+	/**
+	 * clobToString
+	 * @param clob
+	 * @return
+	 * @throws SQLException
+	 * @throws IOException
+	 */
+	public static String ClobToString(CLOB clob) throws SQLException, IOException {
+		String reString = "";
+		Reader is = clob.getCharacterStream();// 得到流
+		BufferedReader br = new BufferedReader(is);
+		String s = br.readLine();
+		StringBuffer sb = new StringBuffer();
+		while (s != null) {// 执行循环将字符串全部取出付值给StringBuffer由StringBuffer转成STRING
+			sb.append(s);
+			s = br.readLine();
+		}
+		reString = sb.toString();
+		if(br!=null){
+			br.close();
+		}
+		if(is!=null){
+			is.close();
+		}
+		return reString;
+	}
 }

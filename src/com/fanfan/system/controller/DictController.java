@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.fanfan.system.core.annotation.ControllerLog;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +35,6 @@ public class DictController{
 	
 	/**
 	 * 跳转到数据字典管理页面
-	 * @param request
 	 * @return
 	 */
 	@RequestMapping(value="viewDict")
@@ -46,11 +46,12 @@ public class DictController{
 	
 	/**
 	 * 保存字典
-	 * @param menu
+	 * @param dict
 	 * @return
 	 */
 	@RequestMapping(value="saveOrUpdate")
 	@ResponseBody
+	@ControllerLog(description = "保存字典")
 	public void saveOrUpdate(Dict dict){
 		
 		try {
@@ -64,10 +65,11 @@ public class DictController{
 	
 	/**
 	 * 删除数据字典
-	 * @param id
+	 * @param ids
 	 */
 	@RequestMapping(value="delete")
 	@ResponseBody
+	@ControllerLog(description = "删除数据字典")
 	public void delete(String[] ids){
 		
 		try {

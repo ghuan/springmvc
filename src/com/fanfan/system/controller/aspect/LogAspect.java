@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import com.fanfan.system.core.annotation.*;
 import com.fanfan.system.service.ILogService;
 import com.fanfan.system.util.VTools;
+import net.sf.json.JSONArray;
 import net.sf.json.util.JSONUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -28,6 +29,8 @@ import org.springframework.web.context.request.ServletWebRequest;
 import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Enumeration;
+import java.util.List;
 
 /**
  * 
@@ -112,23 +115,34 @@ public class LogAspect{
 		HttpServletRequest request = RequestResponseContext.getRequest();
 		String checkLogin = request.getParameter("checkLogin");
 		checkLogin = "false".equals(checkLogin) ? "false" : "true";
-		if(checkLogin.equals("true")){
-			log.error(e.getMessage(), e);
-            //记录异常日志到数据库
-            LoginInfo loginInfo = (LoginInfo) request.getSession().getAttribute(System_Constants.USER_LOGININFO);
-            com.fanfan.system.entity.Log databaseLog = new com.fanfan.system.entity.Log();
-            databaseLog.setDescription(e.getMessage());
-            databaseLog.setMethod((joinPoint.getTarget().getClass().getName() + "." + joinPoint.getSignature().getName() + "()"));
-            databaseLog.setType(1);
-            databaseLog.setRequestip(VTools.getLoginIp(request));
-            databaseLog.setExceptioncode( e instanceof BusinessException ? ((BusinessException)e).getType()+"" : "0");
-            databaseLog.setExceptiondetail(e.toString());
-            databaseLog.setParams( null);
-            databaseLog.setCreator(loginInfo.getUser().getId());
-            databaseLog.setCreatetime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
-            //保存数据库
-            logService.saveOrUpdate(databaseLog);
-		}
+        String method = joinPoint.getSignature().toLongString();
+        if(method.indexOf("SystemController.login")==-1 && method.indexOf("SystemController.logout") == -1){
+
+            if(checkLogin.equals("true")){
+                log.error(e.getMessage(), e);
+                String params = "";
+                if (joinPoint.getArgs() !=  null && joinPoint.getArgs().length > 0) {
+                    for ( int i = 0; i < joinPoint.getArgs().length; i++) {
+                        params = JSONArray.fromObject(joinPoint.getArgs()[i])+"";
+                    }
+                }
+                //记录异常日志到数据库
+                LoginInfo loginInfo = (LoginInfo) request.getSession().getAttribute(System_Constants.USER_LOGININFO);
+                com.fanfan.system.entity.Log databaseLog = new com.fanfan.system.entity.Log();
+                databaseLog.setDescription(e.getMessage());
+                databaseLog.setMethod((joinPoint.getTarget().getClass().getName() + "." + joinPoint.getSignature().getName() + "()"));
+                databaseLog.setType(1);
+                databaseLog.setRequestIp(VTools.getLoginIp(request));
+                databaseLog.setExceptionCode( e instanceof BusinessException ? ((BusinessException)e).getType()+"" : "0");
+                databaseLog.setExceptionDetail(e.toString());
+                databaseLog.setParams( params);
+                databaseLog.setCreator(loginInfo.getUser().getId());
+                databaseLog.setCreateTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+                //保存数据库
+                logService.saveOrUpdate(databaseLog);
+                throw new BusinessException(e.getMessage());//加上这句让异常拦截器获取到e.getMessage()
+            }
+        }
 
 	}
 
@@ -142,18 +156,24 @@ public class LogAspect{
     public void beforeController(JoinPoint joinPoint) {
 
         try {
+            String params = "";
+            if (joinPoint.getArgs() !=  null && joinPoint.getArgs().length > 0) {
+                for ( int i = 0; i < joinPoint.getArgs().length; i++) {
+                    params = JSONArray.fromObject(joinPoint.getArgs()[i])+"";
+                }
+            }
             HttpServletRequest request = RequestResponseContext.getRequest();
             LoginInfo loginInfo = (LoginInfo) request.getSession().getAttribute(System_Constants.USER_LOGININFO);
             com.fanfan.system.entity.Log databaseLog = new com.fanfan.system.entity.Log();
             databaseLog.setDescription(LogAspect.getAnnotationDescription(joinPoint, ControllerLog.class));
             databaseLog.setMethod((joinPoint.getTarget().getClass().getName() + "." + joinPoint.getSignature().getName() + "()"));
             databaseLog.setType(0);
-            databaseLog.setRequestip(VTools.getLoginIp(request));
-            databaseLog.setExceptioncode( null);
-            databaseLog.setExceptiondetail( null);
-            databaseLog.setParams( null);
+            databaseLog.setRequestIp(VTools.getLoginIp(request));
+            databaseLog.setExceptionCode( null);
+            databaseLog.setExceptionDetail( null);
+            databaseLog.setParams(params);
             databaseLog.setCreator(loginInfo.getUser().getId());
-            databaseLog.setCreatetime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+            databaseLog.setCreateTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
             //保存数据库
             logService.saveOrUpdate(databaseLog);
         }catch (Exception e){
@@ -169,18 +189,25 @@ public class LogAspect{
     @Before("servicePointcut()")
     public void beforeService(JoinPoint joinPoint) {
         try {
+
+            String params = "";
+            if (joinPoint.getArgs() !=  null && joinPoint.getArgs().length > 0) {
+                for ( int i = 0; i < joinPoint.getArgs().length; i++) {
+                    params = JSONArray.fromObject(joinPoint.getArgs()[i])+"";
+                }
+            }
             HttpServletRequest request = RequestResponseContext.getRequest();
             LoginInfo loginInfo = (LoginInfo) request.getSession().getAttribute(System_Constants.USER_LOGININFO);
             com.fanfan.system.entity.Log databaseLog = new com.fanfan.system.entity.Log();
             databaseLog.setDescription(LogAspect.getAnnotationDescription(joinPoint, ServiceLog.class));
             databaseLog.setMethod((joinPoint.getTarget().getClass().getName() + "." + joinPoint.getSignature().getName() + "()"));
             databaseLog.setType(0);
-            databaseLog.setRequestip(VTools.getLoginIp(request));
-            databaseLog.setExceptioncode( null);
-            databaseLog.setExceptiondetail( null);
-            databaseLog.setParams( null);
+            databaseLog.setRequestIp(VTools.getLoginIp(request));
+            databaseLog.setExceptionCode( null);
+            databaseLog.setExceptionDetail( null);
+            databaseLog.setParams( params);
             databaseLog.setCreator(loginInfo.getUser().getId());
-            databaseLog.setCreatetime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+            databaseLog.setCreateTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
             //保存数据库
             logService.saveOrUpdate(databaseLog);
         }catch (Exception e){

@@ -2,6 +2,7 @@ package com.fanfan.system.controller;
 
 import java.util.List;
 
+import com.fanfan.system.core.annotation.ControllerLog;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,6 @@ public class UserController{
 	
 	/**
 	 * 跳转到数据字典管理页面
-	 * @param request
 	 * @return
 	 */
 	@RequestMapping(value="viewUser")
@@ -45,7 +45,8 @@ public class UserController{
 	
 	/**
 	 * 查询用户列表
-	 * @param paper
+	 * @param page
+	 * @param user
 	 * @return
 	 */
 	@RequestMapping(value="getUser")
@@ -62,11 +63,12 @@ public class UserController{
 	}
 	
 	/**
-	 * 保存或更新
+	 * 保存或更新用户信息
 	 * @param user
 	 */
 	@RequestMapping(value="saveOrUpdate")
 	@ResponseBody
+	@ControllerLog(description = "保存或更新用户信息")
 	public void saveOrUpdate(User user,String roleIds){
 		
 		try {
@@ -78,11 +80,12 @@ public class UserController{
 	}
 	
 	/**
-	 * 删除
-	 * @param user
+	 * 删除用户
+	 * @param ids
 	 */
 	@RequestMapping(value="delete")
 	@ResponseBody
+	@ControllerLog(description = "删除用户")
 	public void delete(String[] ids){
 		
 		try {

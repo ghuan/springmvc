@@ -19,11 +19,13 @@ public class Log {
 	private String method;
 	private Integer type;
 	private String params;
-	private String exceptioncode;
-	private String exceptiondetail;
-	private String requestip;
+	private String exceptionCode;
+	private String exceptionDetail;
+	private String requestIp;
 	private String creator;
-	private String createtime;
+	private String createTime;
+	@Transient
+	private String createName;
 
 	public String getId() {
 		return id;
@@ -56,7 +58,9 @@ public class Log {
 	public void setType(Integer type) {
 		this.type = type;
 	}
-
+	@Lob
+	@Basic(fetch = FetchType.EAGER)
+	@Type(type = "org.hibernate.type.MaterializedClobType")
 	public String getParams() {
 		return params;
 	}
@@ -65,30 +69,30 @@ public class Log {
 		this.params = params;
 	}
 
-	public String getExceptioncode() {
-		return exceptioncode;
+	public String getExceptionCode() {
+		return exceptionCode;
 	}
 
-	public void setExceptioncode(String exceptioncode) {
-		this.exceptioncode = exceptioncode;
+	public void setExceptionCode(String exceptionCode) {
+		this.exceptionCode = exceptionCode;
 	}
 	@Lob
 	//@Basic(fetch = FetchType.LAZY)默认值
 	@Type(type = "org.hibernate.type.MaterializedClobType")
-	public String getExceptiondetail() {
-		return exceptiondetail;
+	public String getExceptionDetail() {
+		return exceptionDetail;
 	}
 
-	public void setExceptiondetail(String exceptiondetail) {
-		this.exceptiondetail = exceptiondetail;
+	public void setExceptionDetail(String exceptionDetail) {
+		this.exceptionDetail = exceptionDetail;
 	}
 
-	public String getRequestip() {
-		return requestip;
+	public String getRequestIp() {
+		return requestIp;
 	}
 
-	public void setRequestip(String requestip) {
-		this.requestip = requestip;
+	public void setRequestIp(String requestIp) {
+		this.requestIp = requestIp;
 	}
 
 	public String getCreator() {
@@ -99,11 +103,19 @@ public class Log {
 		this.creator = creator;
 	}
 
-	public String getCreatetime() {
-		return createtime;
+	public String getCreateTime() {
+		return createTime;
 	}
 
-	public void setCreatetime(String createtime) {
-		this.createtime = createtime;
+	public void setCreateTime(String createTime) {
+		this.createTime = createTime;
+	}
+
+	public String getCreateName() {
+		return createName;
+	}
+
+	public void setCreateName(String createName) {
+		this.createName = createName;
 	}
 }

@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import com.fanfan.system.core.annotation.ControllerLog;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +42,6 @@ public class MenuController{
 	
 	/**
 	 * 跳转到菜单管理页面
-	 * @param request
 	 * @return
 	 */
 	@RequestMapping(value="viewMenu")
@@ -80,6 +80,7 @@ public class MenuController{
 	 */
 	@RequestMapping(value="saveOrUpdate")
 	@ResponseBody
+	@ControllerLog(description = "保存菜单")
 	public void saveOrUpdate(Menu menu){
 		
 		try {
@@ -92,10 +93,11 @@ public class MenuController{
 	
 	/**
 	 * 删除菜单
-	 * @param id
+	 * @param ids
 	 */
 	@RequestMapping(value="delete")
 	@ResponseBody
+	@ControllerLog(description = "删除菜单")
 	public void delete(String[] ids){
 		
 		try {
@@ -110,7 +112,8 @@ public class MenuController{
 	
 	/**
 	 * 刷新菜单缓存
-	 * @param request
+	 * @param model
+	 * @param session
 	 * @return
 	 */
 	@RequestMapping(value="rfMenuSession")

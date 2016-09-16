@@ -1,5 +1,6 @@
 package com.fanfan.system.service.imp;
 
+import com.fanfan.system.core.hibernate.Page;
 import com.fanfan.system.dao.ILogDao;
 import com.fanfan.system.entity.Log;
 import com.fanfan.system.entity.Org;
@@ -35,7 +36,12 @@ public class LogServiceImpl implements ILogService{
     }
 
     @Override
-    public List<Log> getLog(String startTime, String endTime, int type) {
-        return logDao.getLog(startTime,endTime,type);
+    public Page getLogPage(Page page, String startTime, String endTime, int type, String userId) {
+        return logDao.getLogPage(page,startTime,endTime,type,userId);
+    }
+
+    @Override
+    public String getExceptionDetail(String id){
+        return logDao.getExceptionDetail(id);
     }
 }

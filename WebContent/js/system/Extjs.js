@@ -151,9 +151,16 @@ Ext.override(Ext.Msg, {
 										password : password
 								    },
 									success : function(response) {
-										Ext.Msg.hide();
-										Ext.MessageBox.wait("登陆成功！正在重新载入页面...", "提示", {text:"正在重新载入页面..."});
-										location.reload();
+
+										Ext.Ajax.request({
+											url : "system/loginCallback.action",
+											method : 'POST',
+											success : function(r) {
+												Ext.Msg.hide();
+												Ext.MessageBox.wait("登陆成功！正在重新载入页面...", "提示", {text:"正在重新载入页面..."});
+												location.reload();
+											}
+										});
 									}
 								});
 					     }

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.fanfan.system.core.annotation.ControllerLog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -69,6 +70,17 @@ public class SystemController{
 	    	throw new BusinessException(e.getMessage());
 		}
 		
+	}
+
+	/**
+	 * 登录回调
+	 * @return
+	 */
+	@RequestMapping(value="loginCallback")
+	@ResponseBody
+	@ControllerLog(description = "登陆系统")
+	public void loginCallback() {
+
 	}
 	
 	/**
@@ -186,6 +198,7 @@ public class SystemController{
 	//@RequestMapping(value="/modifyPWD", produces = "application/json; charset=utf-8")
 	@RequestMapping(value="modifyPWD")
 	@ResponseBody
+	@ControllerLog(description = "修改用户密码")
 	public void modifyPWD(HttpServletRequest request,HttpSession session)
 	  {
 		
@@ -206,6 +219,7 @@ public class SystemController{
 	 * @param response
 	 */
 	@RequestMapping(value="download")
+	@ControllerLog(description = "下载帮助文档")
 	public void download(HttpServletRequest request,HttpServletResponse response){
 		
 		try {
