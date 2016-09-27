@@ -6,7 +6,7 @@ create table T_SYS_LOG
   id              VARCHAR2(32) not null,
   description     VARCHAR2(1000),
   method          VARCHAR2(1000),
-  params          VARCHAR2(400),
+  params          clob,
   type            NUMBER(1),
   exceptioncode   VARCHAR2(19),
   exceptiondetail clob,

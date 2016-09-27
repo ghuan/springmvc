@@ -77,4 +77,5 @@
 		<bean id="customInterceptor" class="com.fanfan.system.core.spring.CustomInterceptor"/>  
 	</mvc:interceptor>
 </mvc:interceptors>
+	<!--  -->
  </beans>
