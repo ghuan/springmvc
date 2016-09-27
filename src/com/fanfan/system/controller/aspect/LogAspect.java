@@ -25,6 +25,7 @@ import com.fanfan.system.vo.LoginInfo;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.context.request.ServletWebRequest;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
@@ -123,7 +124,7 @@ public class LogAspect{
                 String params = "";
                 if (joinPoint.getArgs() !=  null && joinPoint.getArgs().length > 0) {
                     for ( int i = 0; i < joinPoint.getArgs().length; i++) {
-                        params = JSONArray.fromObject(joinPoint.getArgs()[i])+"";
+                        params += JSONArray.fromObject(joinPoint.getArgs()[i])+" ";
                     }
                 }
                 //记录异常日志到数据库
@@ -159,7 +160,7 @@ public class LogAspect{
             String params = "";
             if (joinPoint.getArgs() !=  null && joinPoint.getArgs().length > 0) {
                 for ( int i = 0; i < joinPoint.getArgs().length; i++) {
-                    params = JSONArray.fromObject(joinPoint.getArgs()[i])+"";
+                    params += JSONArray.fromObject(joinPoint.getArgs()[i])+" ";
                 }
             }
             HttpServletRequest request = RequestResponseContext.getRequest();
@@ -193,7 +194,7 @@ public class LogAspect{
             String params = "";
             if (joinPoint.getArgs() !=  null && joinPoint.getArgs().length > 0) {
                 for ( int i = 0; i < joinPoint.getArgs().length; i++) {
-                    params = JSONArray.fromObject(joinPoint.getArgs()[i])+"";
+                    params += JSONArray.fromObject(joinPoint.getArgs()[i])+" ";
                 }
             }
             HttpServletRequest request = RequestResponseContext.getRequest();

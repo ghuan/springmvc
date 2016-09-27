@@ -54,7 +54,6 @@ public class ImageUploadMngController{
 	 */
 	@RequestMapping(value="imageUpload")
 	@ResponseBody
-	@ControllerLog(description = "图片上传")
 	public void imageUpload(@RequestParam("file") CommonsMultipartFile file,String name){
 		
 		try {
