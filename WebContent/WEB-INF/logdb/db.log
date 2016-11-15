@@ -1,0 +1,34 @@
+/*C1*/SET SCHEMA PUBLIC
+CONNECT USER SA
+DISCONNECT
+/*C2*/SET SCHEMA PUBLIC
+CONNECT USER SA
+DISCONNECT
+/*C3*/SET SCHEMA PUBLIC
+CONNECT USER SA
+/*C4*/SET SCHEMA PUBLIC
+CONNECT USER SA
+/*C5*/SET SCHEMA PUBLIC
+CONNECT USER SA
+/*C6*/SET SCHEMA PUBLIC
+CONNECT USER SA
+/*C7*/SET SCHEMA PUBLIC
+CONNECT USER SA
+/*C8*/SET SCHEMA PUBLIC
+CONNECT USER SA
+/*C9*/SET SCHEMA PUBLIC
+CONNECT USER SA
+/*C10*/SET SCHEMA PUBLIC
+CONNECT USER SA
+/*C11*/SET SCHEMA PUBLIC
+CONNECT USER SA
+/*C12*/SET SCHEMA PUBLIC
+CONNECT USER SA
+SET LOGSIZE 5
+SET AUTOCOMMIT FALSE
+/*C11*/SET AUTOCOMMIT FALSE
+SET AUTOCOMMIT TRUE
+/*C12*/SET AUTOCOMMIT TRUE
+INSERT INTO FR_ERRRECORD VALUES(81,'\u975e\u6a21\u677f\u89e6\u53d1\u9519\u8bef',NULL,6,'com.fr.bi.BIPlate','java.lang.ClassNotFoundException: com.fr.bi.BIPlate\u000d\u000a\u0009at java.net.URLClassLoader$1.run(Unknown Source)\u000d\u000a\u0009at java.net.URLClassLoader$1.run(Unknown Source)\u000d\u000a\u0009at java.security.AccessController.doPrivileged(Native Method)\u000d\u000a\u0009at java.net.URLClassLoader.findClass(Unknown Source)\u000d\u000a\u0009at java.lang.ClassLoader.loadClass(Unknown Source)\u000d\u000a\u0009at java.lang.ClassLoader.loadClass(Unknown Source)\u000d\u000a\u0009at java.lang.Class.forName0(Native Method)\u000d\u000a\u0009at java.lang.Class.forName(Unknown Source)\u000d\u000a\u0009at com.fr.general.GeneralUtils.classForName(Unknown Source)\u000d\u000a\u0009at com.fr.fs.PlateFactory.startPlate(Unknown Source)\u000d\u000a\u0009at com.fr.fs.FSModule.startPlate(Unknown Source)\u000d\u000a\u0009at com.fr.fs.FSModule.init(Unknown Source)\u000d\u000a\u0009at com.fr.fs.FSModule.startFinish(Unknown Source)\u000d\u000a\u0009at com.fr.report.module.EngineModule.start(Unknown Source)\u000d\u000a\u0009at com.fr.general.ModuleContext.startModule(Unknown Source)\u000d\u000a\u0009at com.fr.web.BaseServlet.init(Unknown Source)\u000d\u000a\u0009at com.fr.web.ReportServlet.init(Unknown Source)\u000d\u000a\u0009at org.apache.catalina.core.StandardWrapper.initServlet(StandardWrapper.java:1284)\u000d\u000a\u0009at org.apache.catalina.core.StandardWrapper.loadServlet(StandardWrapper.java:1197)\u000d\u000a\u0009at org.apache.catalina.core.StandardWrapper.load(StandardWrapper.java:1087)\u000d\u000a\u0009at org.apache.catalina.core.StandardContext.loadOnStartup(StandardContext.java:5327)\u000d\u000a\u0009at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:5617)\u000d\u000a\u0009at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:150)\u000d\u000a\u0009at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1574)\u000d\u000a\u0009at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1564)\u000d\u000a\u0009at java.util.concurrent.FutureTask.run(Unknown Source)\u000d\u000a\u0009at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)\u000d\u000a\u0009at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)\u000d\u000a\u0009at java.lang.Thread.run(Unknown Source)\u000d\u000a','2016-11-10 14:29:47.385000000')
+INSERT INTO FR_EXERECORD VALUES(11,'/example1.cpt',0,'__FIT__ : true[java.lang.Boolean], __LOCALE__ : zh_CN[java.util.Locale], __STREAMCLOSED__ : [java.lang.String], ENCODINGFILTER.FILTERED : true[java.lang.String], LOGININFO : com.fanfan.system.vo.LoginInfo@4cf7ac31[com.fanfan.system.vo.LoginInfo], OPENSESSION.FILTERED : true[java.lang.String], ORG.SPRINGFRAMEWORK.WEB.CONTEXT.REQUEST.ASYNC.WEBASYNCMANAGER.WEB_ASYNC_MANAGER : org.springframework.web.context.request.async.WebAsyncManager@5ee6f0a5[java.lang.String], ORG.SPRINGFRAMEWORK.WEB.CONTEXT.REQUEST.REQUESTCONTEXTLISTENER.REQUEST_ATTRIBUTES : org.apache.catalina.connector.Request@6a3581f4[java.lang.String], REPORTLET : /example1.cpt[java.lang.String], REPORTNAME : /example1.cpt[java.lang.String]','localhost','\u672a\u767b\u5f55\u7528\u6237','\u672a\u77e5\u89d2\u8272',449,'2016-11-10 14:30:31.641000000','[ sql : select * from fn.t_sys_user ; rowcount : 20 ; time : 2016-11-10 14:30:31 ;]\u000a','{"Browser":"mozilla","Agent":"mozilla/5.0 (windows nt 6.1; wow64; rv:49.0) gecko/20100101 firefox/49.0","BoxModel":true,"Version":"49.0"}',72000)
+/*C11*/INSERT INTO FR_FUNCTIONRECORD VALUES('{"315823103":2}','2016-11-10 14:32:28.278000000')

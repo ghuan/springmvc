@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><plugin>
+    <id>com.fr.plugin.chart.vancharts</id>
+    <name><![CDATA[图表(新特性)]]></name>
+    <active>yes</active>
+    <version>8.1.7</version>
+    <env-version>8.0</env-version>
+    <jartime>2016-8-16</jartime>
+    <vendor>finereport.eason.shine</vendor>
+    <description><![CDATA[使用全新的SVG技术构建的图表,具有流畅的动画的效果,高度自定义的展现设计]]></description>
+    <change-notes><![CDATA[
+        <p>[2015-10-10]<a href="http://bbs.finereport.com/thread-70328-1-1.html">全新饼图</a></p>
+        <p>[2015-11-05]<a href="http://bbs.finereport.com/thread-70899-1-1.html">全新的柱形图与条形图</a></p>
+        <p>[2015-11-25]<a href="http://bbs.finereport.com/thread-71202-1-1.html">全新的折线图</a></p>
+        <p>[2015-12-01]<a href="http://bbs.finereport.com/thread-71364-1-1.html">全新的面积图</a></p>
+        <p>[2015-12-28]<a href="http://bbs.finereport.com/thread-71912-1-1.html">全新的仪表盘</a></p>
+        <p>[2016-02-14]<a href="http://bbs.finereport.com/thread-72700-1-1.html">全新的雷达图</a></p>
+        <p>[2016-03-08]<a>兼容8.0接口改动</a></p>
+        <p>[2016-03-09]<a>饼图牵引线优化；增加图表的点击效果；折线图面积图增加大数据优化功能；分类名系列名支持格式设置；标签自定义增加大小设置；优化网格线动画</a></p>
+        <p>[2016-04-14]<a href="http://bbs.finereport.com/thread-73795-1-1.html">全新的散点图与气泡图。包含对大数据的额外优化处理及富有力学因素的气泡图</a></p>
+        <p>[2016-05-17]<a>修复时间坐标轴主要刻度单位为1秒时设计器卡死的bug</a></p>
+        <p>[2016-05-26]<a>版本号更新</a></p>
+        <p>[2016-06-23]<a href="http://bbs.finereport.com/thread-75266-1-1.html">全新的组合图</a></p>
+        <p>[2016-06-24]<a>对H5移动端的优化处理</a></p>
+        <p>[2016-06-24]<a>修复图表超链参数的bug</a></p>
+        <p>[2016-06-30]<a>饼图标签的bug</a></p>
+        <p>[2016-07-18]<a href="http://bbs.finereport.com/thread-75925-1-1.html">全新的地图</a></p>
+        <p>[2016-07-18]<a>全新的多层饼图</a></p>
+        <p>[2016-07-18]<a>坐标轴翻转属性</a></p>
+        <p>[2016-07-18]<a href="http://bbs.finereport.com/thread-75879-1-1.html">地图数据下载链接</a></p>
+        <p>[2016-07-21]<a>修复自定义图片地图的bug</a></p>
+        <p>[2016-07-21]<a>多层钻取地图在ie下的性能优化</a></p>
+        <p>[2016-07-21]<a>bug修复</a></p>
+        <p>[2016-07-18]<a>更新矩形树图</a></p>
+        <p>[2016-07-21]<a>bug修复</a></p>
+        <p>[2016-09-1]<a>组合图参数联动无效的bug</a></p>
+
+    ]]></change-notes>
+    <extra-core>
+        <LocaleFinder class="com.fr.plugin.chart.locale.VanChartLocaleFinder"/>
+        <JavaScriptFileHandler class="com.fr.plugin.chart.VanChartsBaseJavaScript"/>
+        <CssFileHandler class="com.fr.plugin.chart.VanChartsBaseCss"/>
+    </extra-core>
+    <extra-report/>
+    <extra-designer>
+    </extra-designer>
+
+    <extra-chart>
+        <IndependentChartProvider class="com.fr.plugin.chart.pie.PieIndependentVanChart" plotID="VanChartPiePlot"/>
+        <IndependentChartProvider class="com.fr.plugin.chart.column.ColumnIndependentVanChart" plotID="VanChartColumnPlot"/>
+        <IndependentChartProvider class="com.fr.plugin.chart.bar.BarIndependentVanChart" plotID="VanChartBarPlot"/>
+        <IndependentChartProvider class="com.fr.plugin.chart.line.LineIndependentVanChart" plotID="VanChartLinePlot"/>
+        <IndependentChartProvider class="com.fr.plugin.chart.area.AreaIndependentVanChart" plotID="VanChartAreaPlot"/>
+        <IndependentChartProvider class="com.fr.plugin.chart.gauge.GaugeIndependentVanChart" plotID="VanChartGaugePlot"/>
+        <IndependentChartProvider class="com.fr.plugin.chart.radar.RadarIndependentVanChart" plotID="VanChartRadarPlot"/>
+        <IndependentChartProvider class="com.fr.plugin.chart.scatter.ScatterIndependentVanChart" plotID="VanChartScatterPlot"/>
+        <IndependentChartProvider class="com.fr.plugin.chart.bubble.BubbleIndependentVanChart" plotID="VanChartBubblePlot"/>
+        <IndependentChartProvider class="com.fr.plugin.chart.custom.CustomIndependentVanChart" plotID="VanChartCustomPlot"/>
+        <IndependentChartProvider class="com.fr.plugin.chart.multilayer.MultiPieIndependentVanChart" plotID="VanChartMultiPiePlot"/>
+        <IndependentChartProvider class="com.fr.plugin.chart.map.MapIndependentVanChart" plotID="VanChartMapPlot"/>
+        <IndependentChartProvider class="com.fr.plugin.chart.drillmap.DrillMapIndependentVanChart" plotID="VanChartDrillMapPlot"/>
+        <IndependentChartProvider class="com.fr.plugin.chart.treemap.TreeMapIndependentVanChart" plotID="VanChartTreeMapPlot"/>
+    </extra-chart>
+
+    <extra-chart-designer>
+        <IndependentChartUIProvider class="com.fr.plugin.chart.pie.PieIndependentVanChartInterface" plotID="VanChartPiePlot"/>
+        <IndependentChartUIProvider class="com.fr.plugin.chart.column.ColumnIndependentVanChartInterface" plotID="VanChartColumnPlot"/>
+        <IndependentChartUIProvider class="com.fr.plugin.chart.bar.BarIndependentVanChartInterface" plotID="VanChartBarPlot"/>
+        <IndependentChartUIProvider class="com.fr.plugin.chart.line.LineIndependentVanChartInterface" plotID="VanChartLinePlot"/>
+        <IndependentChartUIProvider class="com.fr.plugin.chart.area.AreaIndependentVanChartInterface" plotID="VanChartAreaPlot"/>
+        <IndependentChartUIProvider class="com.fr.plugin.chart.gauge.GaugeIndependentVanChartInterface" plotID="VanChartGaugePlot"/>
+        <IndependentChartUIProvider class="com.fr.plugin.chart.radar.RadarIndependentVanChartInterface" plotID="VanChartRadarPlot"/>
+        <IndependentChartUIProvider class="com.fr.plugin.chart.scatter.ScatterIndependentVanChartInterface" plotID="VanChartScatterPlot"/>
+        <IndependentChartUIProvider class="com.fr.plugin.chart.bubble.BubbleIndependentVanChartInterface" plotID="VanChartBubblePlot"/>
+        <IndependentChartUIProvider class="com.fr.plugin.chart.custom.CustomIndependentVanChartInterface" plotID="VanChartCustomPlot"/>
+        <IndependentChartUIProvider class="com.fr.plugin.chart.multilayer.MultiPieIndependentVanChartInterface" plotID="VanChartMultiPiePlot"/>
+        <IndependentChartUIProvider class="com.fr.plugin.chart.map.MapIndependentVanChartInterface" plotID="VanChartMapPlot"/>
+        <IndependentChartUIProvider class="com.fr.plugin.chart.drillmap.DrillMapIndependentVanChartInterface" plotID="VanChartDrillMapPlot"/>
+        <IndependentChartUIProvider class="com.fr.plugin.chart.treemap.TreeMapIndependentVanChartInterface" plotID="VanChartTreeMapPlot"/>
+    </extra-chart-designer>
+
+    <extra-designer>
+        <MenuHandler class="com.fr.plugin.chart.map.server.MapMenuHandler"/>
+    </extra-designer>
+
+</plugin>

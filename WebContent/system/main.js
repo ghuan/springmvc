@@ -1,4 +1,3 @@
-
 fn.imports("system.constants.System_Constants");
 fn.importCss("css.system.TabScrollerMenu");
 Ext.Loader.setPath('Ext.ux', 'system/com/ux');
@@ -175,7 +174,7 @@ Ext.onReady(function() {
 			if (k.data.openMethod == System_Constants.TAB_OPENTYPE_IFRAME) {
 				f = tabPanel.add({
 					id : "tab-" + k.data.id,
-					title : "<div>" + k.data.name + "</div>",
+					title : k.data.name,
 					frame : false,
 					border : false,
 					autoScroll : true,
@@ -186,8 +185,8 @@ Ext.onReady(function() {
 					nocache : true,
 					html : '<iframe src="'
 							+ e
-							+ System_Constants.SYSTEM_ACTION_SUFFIX
-							+ '" scrolling="auto" frameborder="0" width="100%" height="100%"></iframe>'
+							+ (e.indexOf('.cpt') == -1 ? System_Constants.SYSTEM_ACTION_SUFFIX : '')
+							+ '" scrolling="no" frameborder="0" width="100%" height="99%"></iframe>'
 				});
 			} else {
 				Ext.Msg.alert(fn.INFO, "不能识别的菜单打开类型。");

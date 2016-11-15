@@ -30,6 +30,7 @@ import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hssf.util.HSSFColor;
+import org.apache.poi.ss.usermodel.ClientAnchor;
 
 /**
  * <p> ExportExcel.java </p>
@@ -399,7 +400,7 @@ public class ExportExcel<T> {
 			byte[] bsValue = (byte[]) value;
 			HSSFClientAnchor anchor = new HSSFClientAnchor(0, 0, 1023, 255,
 					(short) 6, index, (short) 6, index);
-			anchor.setAnchorType(2);
+			anchor.setAnchorType(ClientAnchor.AnchorType.MOVE_DONT_RESIZE);
 			patriarch.createPicture(anchor, workbook.addPicture(bsValue,
 					HSSFWorkbook.PICTURE_TYPE_JPEG));
 		} else {

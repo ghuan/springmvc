@@ -14,6 +14,5 @@ public class Test {
         SimpleDateFormat format = (SimpleDateFormat) context
                 .getBean("defaultDateFormat");
         System.out.println(format.format(new Date()));
-
     }
 }

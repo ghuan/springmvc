@@ -48,6 +48,17 @@ public class PersonnelJbxxMngController{
 		log.info("正在载入员工基本信息管理页面...");
 		return "subsystem/gsgl/personnel/jbxx/personnelJbxxMng";
 	}
+
+	/**
+	 * 打开报表页面
+	 * @return
+	 */
+	@RequestMapping(value="reportExample")
+	public String reportExample() {
+
+		log.info("正在载入报表demo页面...");
+		return "/demo/analytics/tongji";
+	}
 	
 	/**
 	 * 获取员工基本信息分页数据
