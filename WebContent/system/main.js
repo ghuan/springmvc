@@ -185,8 +185,7 @@ Ext.onReady(function() {
 					nocache : true,
 					html : '<iframe src="'
 							+ e
-							+ (e.indexOf('.cpt') == -1 ? System_Constants.SYSTEM_ACTION_SUFFIX : '')
-							+ '" scrolling="no" frameborder="0" width="100%" height="99%"></iframe>'
+							+'" scrolling="no" frameborder="0" width="100%" height="99%"></iframe>'
 				});
 			} else {
 				Ext.Msg.alert(fn.INFO, "不能识别的菜单打开类型。");
